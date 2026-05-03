@@ -383,9 +383,13 @@ async function saveToWorld(b64, name) {
   const file = new File([blob], filename, { type: "image/png" });
 
   const uploadPath = `worlds/${game.world.id}/scenes`;
-  try { await FilePicker.createDirectory("data", uploadPath, {}); } catch(_) {}
 
-  const result = await FilePicker.upload("data", uploadPath, file, {});
+  // Foundry V14: FilePicker ist unter foundry.applications.apps.FilePicker.implementation
+  const FP = foundry.applications?.apps?.FilePicker?.implementation ?? FilePicker;
+
+  try { await FP.createDirectory("data", uploadPath, {}); } catch(_) {}
+
+  const result = await FP.upload("data", uploadPath, file, {});
   console.log("EFDI-SG | Upload result:", result);
   if (!result?.path) throw new Error("Upload fehlgeschlagen – kein Pfad zurückgegeben.");
   return result.path;
