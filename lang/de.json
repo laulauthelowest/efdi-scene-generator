@@ -1,0 +1,32 @@
+{
+  "EFDI_SG": {
+    "Title": "🦕 Szenenbild generieren",
+    "ApiKey": "OpenAI API-Key",
+    "ApiKeyHint": "Wird nur lokal in deinem Browser gespeichert.",
+    "ApiKeyPlaceholder": "sk-...",
+    "SceneName": "Szenenname / Ort",
+    "SceneNamePlaceholder": "z.B. Vulkankrater, Dschungel, Labor...",
+    "Style": "Bildstil",
+    "PromptExtra": "Zusätzliche Details (optional)",
+    "PromptPlaceholder": "z.B. mit Lavafluss, bei Nacht, verlassen...",
+    "Quality": "Qualität",
+    "QualityStandard": "Standard (~$0.04 pro Bild)",
+    "QualityHD": "HD (~$0.08 pro Bild)",
+    "Generate": "🎨 Bild generieren",
+    "Generating": "⏳ Generiere Bild...",
+    "CreateScene": "✅ Als neue Szene anlegen",
+    "AddToExisting": "📌 Zu bestehender Szene hinzufügen",
+    "Regenerate": "🔄 Neu generieren",
+    "Download": "💾 Bild speichern",
+    "NoKey": "Bitte erst einen OpenAI API-Key eingeben (⚙ Einstellungen).",
+    "NoName": "Bitte einen Szenennamen eingeben.",
+    "Success": "✅ Szene wurde erstellt!",
+    "ErrorPrefix": "Fehler: ",
+    "SettingsTitle": "⚙ API Einstellungen",
+    "HistoryTitle": "Zuletzt generiert",
+    "HistoryEmpty": "Noch keine Bilder generiert.",
+    "ButtonTooltip": "EFDI: Szenenbild mit DALL-E generieren",
+    "PromptPreview": "Verwendeter Prompt:",
+    "SavedToWorld": "Bild in Welt gespeichert unter:"
+  }
+}

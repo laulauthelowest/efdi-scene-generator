@@ -1,0 +1,131 @@
+<!-- templates/scene-generator.html -->
+<div class="efdi-sg-container">
+
+  <!-- API Key Bereich -->
+  <details class="efdi-sg-settings">
+    <summary>⚙ API Einstellungen</summary>
+    <div class="efdi-sg-settings-body">
+      <label>{{localize "EFDI_SG.ApiKey"}}</label>
+      <div class="efdi-sg-key-row">
+        <input type="password" class="efdi-sg-api-key" value="{{apiKey}}"
+          placeholder="sk-proj-..." autocomplete="off">
+        <button type="button" class="efdi-sg-save-key">💾 Speichern</button>
+      </div>
+      <p class="efdi-sg-hint">{{localize "EFDI_SG.ApiKeyHint"}}
+        <a href="https://platform.openai.com/api-keys" target="_blank">→ API-Key erstellen</a>
+      </p>
+    </div>
+  </details>
+
+  <!-- Eingaben -->
+  <div class="efdi-sg-inputs">
+
+    <div class="efdi-sg-field">
+      <label>{{localize "EFDI_SG.SceneName"}}</label>
+      <input type="text" class="efdi-sg-scene-name"
+        placeholder="{{localize "EFDI_SG.SceneNamePlaceholder"}}">
+    </div>
+
+    <div class="efdi-sg-row">
+      <div class="efdi-sg-field">
+        <label>{{localize "EFDI_SG.Style"}}</label>
+        <select class="efdi-sg-style">
+          <option value="jungle">🌿 Dschungel-Abenteuer</option>
+          <option value="scifi">🔬 Sci-Fi Komplex</option>
+          <option value="horror">😱 Horror / Bedrohlich</option>
+          <option value="painterly">🎨 Episches Gemälde</option>
+          <option value="realistic">📷 Realistisch</option>
+        </select>
+      </div>
+      <div class="efdi-sg-field">
+        <label>{{localize "EFDI_SG.Quality"}}</label>
+        <select class="efdi-sg-quality">
+          <option value="standard">Standard (~$0.04)</option>
+          <option value="hd">HD (~$0.08)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="efdi-sg-field">
+      <label>{{localize "EFDI_SG.PromptExtra"}}</label>
+      <input type="text" class="efdi-sg-extra"
+        placeholder="{{localize "EFDI_SG.PromptPlaceholder"}}">
+    </div>
+
+    <button type="button" class="efdi-sg-generate efdi-sg-btn-primary">
+      🎨 Bild generieren
+    </button>
+  </div>
+
+  <!-- Prompt-Vorschau -->
+  <div class="efdi-sg-prompt-section" style="display:none;">
+    <div class="efdi-sg-prompt-label">Verwendeter Prompt:</div>
+    <div class="efdi-sg-prompt-preview"></div>
+  </div>
+
+  <!-- Loading -->
+  <div class="efdi-sg-loading" style="display:none;">
+    <div class="efdi-sg-spinner">🦕</div>
+    <p>DALL-E generiert dein Bild… (ca. 10–20 Sekunden)</p>
+  </div>
+
+  <!-- Ergebnis -->
+  <div class="efdi-sg-result" style="display:none;">
+    <img class="efdi-sg-preview-img" src="" alt="Generiertes Szenenbild">
+  </div>
+
+  <!-- Aktionen -->
+  <div class="efdi-sg-actions" style="display:none;">
+
+    <div class="efdi-sg-field">
+      <label>Ordner (optional)</label>
+      <input type="text" class="efdi-sg-folder" placeholder="z.B. 🌿 Natur">
+    </div>
+
+    <div class="efdi-sg-action-row">
+      <button type="button" class="efdi-sg-create-scene efdi-sg-btn-primary">
+        ✅ Als neue Szene anlegen
+      </button>
+      <button type="button" class="efdi-sg-regenerate efdi-sg-btn-secondary">
+        🔄 Neu generieren
+      </button>
+      <button type="button" class="efdi-sg-download efdi-sg-btn-secondary">
+        💾 Speichern
+      </button>
+    </div>
+
+    <div class="efdi-sg-field">
+      <label>Oder zu bestehender Szene hinzufügen:</label>
+      <div class="efdi-sg-row">
+        <select class="efdi-sg-existing-scene">
+          <option value="">— Szene wählen —</option>
+          {{#each scenes}}
+          <option value="{{this.id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+        <button type="button" class="efdi-sg-add-to-scene efdi-sg-btn-secondary">
+          📌 Hinzufügen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="efdi-sg-history">
+    <div class="efdi-sg-history-title">🕐 Zuletzt generiert</div>
+    <div class="efdi-sg-history-items">
+      {{#if history.length}}
+        {{#each history}}
+        <div class="efdi-sg-history-item">
+          <img src="{{this.url}}" class="efdi-sg-history-thumb" title="{{this.name}}">
+          <div class="efdi-sg-history-name">{{this.name}}</div>
+          <button class="efdi-sg-history-use" data-url="{{this.url}}">Verwenden</button>
+        </div>
+        {{/each}}
+      {{else}}
+        <p class="efdi-sg-hint">Noch keine Bilder generiert.</p>
+      {{/if}}
+    </div>
+  </div>
+
+</div>

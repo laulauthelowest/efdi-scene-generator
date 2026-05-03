@@ -1,0 +1,315 @@
+/* styles/scene-generator.css */
+/* EFDI Scene Generator – Dark Dino Theme */
+
+:root {
+  --sg-bg:      #0a0f0a;
+  --sg-panel:   #0d1f0d;
+  --sg-border:  #1a4a1a;
+  --sg-green:   #4caf50;
+  --sg-green-l: #c8ffc8;
+  --sg-text:    #e0ffe0;
+  --sg-muted:   #5a8a5a;
+  --sg-dim:     #3a6a3a;
+  --sg-scale:   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='40'%3E%3Cellipse cx='24' cy='32' rx='22' ry='14' fill='none' stroke='rgba(40,120,60,0.12)' stroke-width='1'/%3E%3Cellipse cx='0' cy='6' rx='22' ry='14' fill='none' stroke='rgba(40,120,60,0.12)' stroke-width='1'/%3E%3Cellipse cx='48' cy='6' rx='22' ry='14' fill='none' stroke='rgba(40,120,60,0.12)' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* Sidebar-Button */
+.efdi-sg-open-btn {
+  width: 100%;
+  margin-top: 4px;
+  background: linear-gradient(135deg, #0d2a0d, #1a4a1a);
+  border: 1px solid var(--sg-green);
+  border-radius: 5px;
+  color: var(--sg-green-l);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.efdi-sg-open-btn:hover {
+  background: linear-gradient(135deg, #1a4a1a, #2a6a2a);
+  color: white;
+}
+
+/* Dialog */
+.efdi-sg .window-content {
+  background: var(--sg-bg);
+  padding: 0;
+}
+
+.efdi-sg-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: var(--sg-bg);
+  color: var(--sg-text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.efdi-sg-container::-webkit-scrollbar { width: 4px; }
+.efdi-sg-container::-webkit-scrollbar-thumb { background: var(--sg-border); border-radius: 2px; }
+
+/* Settings */
+.efdi-sg-settings {
+  background: var(--sg-panel);
+  border: 1px solid var(--sg-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.efdi-sg-settings summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--sg-muted);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.efdi-sg-settings-body {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.efdi-sg-key-row {
+  display: flex;
+  gap: 6px;
+}
+
+.efdi-sg-key-row input {
+  flex: 1;
+}
+
+/* Inputs */
+.efdi-sg-inputs {
+  background: var(--sg-panel);
+  border: 1px solid var(--sg-border);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.efdi-sg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.efdi-sg-field label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sg-dim);
+}
+
+.efdi-sg-container input,
+.efdi-sg-container select,
+.efdi-sg-container textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--sg-border);
+  border-radius: 4px;
+  color: var(--sg-text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 4px 8px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.efdi-sg-container input:focus,
+.efdi-sg-container select:focus {
+  outline: 1px solid var(--sg-green);
+  border-color: var(--sg-green);
+}
+
+.efdi-sg-row {
+  display: flex;
+  gap: 8px;
+}
+.efdi-sg-row .efdi-sg-field { flex: 1; }
+
+/* Buttons */
+.efdi-sg-btn-primary {
+  background: var(--sg-green);
+  color: #030f03;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s;
+  width: 100%;
+}
+.efdi-sg-btn-primary:hover { background: #2a6a2a; color: var(--sg-green-l); }
+.efdi-sg-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.efdi-sg-btn-secondary {
+  background: var(--sg-panel);
+  color: var(--sg-green);
+  border: 1px solid var(--sg-border);
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.efdi-sg-btn-secondary:hover { background: #1a3a1a; color: var(--sg-green-l); }
+
+/* Prompt Preview */
+.efdi-sg-prompt-section {
+  background: #080f08;
+  border: 1px solid var(--sg-border);
+  border-radius: 5px;
+  padding: 8px 10px;
+}
+
+.efdi-sg-prompt-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--sg-dim);
+  margin-bottom: 4px;
+}
+
+.efdi-sg-prompt-preview {
+  font-size: 10px;
+  color: var(--sg-muted);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* Loading */
+.efdi-sg-loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--sg-muted);
+}
+
+.efdi-sg-spinner {
+  font-size: 36px;
+  animation: dino-bounce 1s infinite alternate;
+  display: block;
+  margin-bottom: 8px;
+}
+
+@keyframes dino-bounce {
+  from { transform: translateY(0) rotate(-10deg); }
+  to   { transform: translateY(-8px) rotate(10deg); }
+}
+
+/* Vorschaubild */
+.efdi-sg-result {
+  border: 2px solid var(--sg-green);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.efdi-sg-preview-img {
+  width: 100%;
+  display: block;
+  max-height: 220px;
+  object-fit: cover;
+}
+
+/* Aktionen */
+.efdi-sg-actions {
+  background: var(--sg-panel);
+  border: 1px solid var(--sg-border);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.efdi-sg-action-row {
+  display: flex;
+  gap: 6px;
+}
+.efdi-sg-action-row .efdi-sg-btn-primary { flex: 2; }
+.efdi-sg-action-row .efdi-sg-btn-secondary { flex: 1; }
+
+/* History */
+.efdi-sg-history {
+  background: var(--sg-panel);
+  border: 1px solid var(--sg-border);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.efdi-sg-history-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--sg-dim);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.efdi-sg-history-items {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.efdi-sg-history-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 90px;
+}
+
+.efdi-sg-history-thumb {
+  width: 90px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--sg-border);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.efdi-sg-history-thumb:hover { border-color: var(--sg-green); }
+
+.efdi-sg-history-name {
+  font-size: 9px;
+  color: var(--sg-muted);
+  text-align: center;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.efdi-sg-history-use {
+  background: transparent;
+  border: 1px solid var(--sg-border);
+  border-radius: 3px;
+  color: var(--sg-green);
+  font-size: 9px;
+  padding: 1px 6px;
+  cursor: pointer;
+}
+.efdi-sg-history-use:hover { background: var(--sg-border); }
+
+/* Hint Text */
+.efdi-sg-hint {
+  font-size: 10px;
+  color: var(--sg-dim);
+  font-style: italic;
+  margin: 2px 0;
+}
+
+.efdi-sg-hint a {
+  color: var(--sg-green);
+  text-decoration: none;
+}
+.efdi-sg-hint a:hover { text-decoration: underline; }
