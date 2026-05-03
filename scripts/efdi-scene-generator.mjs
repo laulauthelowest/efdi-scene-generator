@@ -274,13 +274,14 @@ function openSceneGenerator() {
         // Foundry V14 Levels-System: Hintergrundbild im ersten Level setzen
         const levels = scene.toObject().levels ?? [];
         if (levels.length > 0) {
-          // Bestehendes Level updaten
           const levelId = levels[0]._id;
-          await scene.update({
-            [`levels.${levelId}.background.src`]: path
-          });
+          // Embedded Document update
+          await scene.updateEmbeddedDocuments("SceneLevel", [{
+            _id: levelId,
+            "background.src": path
+          }]);
+          console.log("EFDI-SG | Level updated:", levelId, path);
         } else {
-          // Kein Level vorhanden: neues anlegen
           await scene.createEmbeddedDocuments("SceneLevel", [{
             name: "Level",
             elevation: { bottom: 0, top: 20 },
@@ -309,9 +310,10 @@ function openSceneGenerator() {
         const targetLevels = targetScene?.toObject().levels ?? [];
         if (targetLevels.length > 0) {
           const levelId = targetLevels[0]._id;
-          await targetScene.update({
-            [`levels.${levelId}.background.src`]: path
-          });
+          await targetScene.updateEmbeddedDocuments("SceneLevel", [{
+            _id: levelId,
+            "background.src": path
+          }]);
         } else {
           await targetScene?.createEmbeddedDocuments("SceneLevel", [{
             name: "Level",
