@@ -72,27 +72,27 @@ async function uploadToFoundry(b64, name) {
 
 // ── Szene erstellen (getesteter Code) ───────────────────────────
 async function createSceneWithBackground(name, path, folderId) {
+  // Schritt 1: Szene erstellen (Foundry ignoriert Level-Daten beim Create)
   const scene = await Scene.create({
     name,
     folder: folderId ?? null,
     width: 1792,
     height: 1024,
     grid: { type: 0, size: 100 },
-    backgroundColor: "#1a2a1a",
-    levels: [{
-      _id: "defaultLevel0000",
-      name: "Level",
-      elevation: { bottom: 0, top: 20 },
-      background: { src: path, color: "#121212", tint: "#ffffff", alphaThreshold: 0.75 },
-      foreground: { src: null, tint: "#ffffff", alphaThreshold: 0.75 },
-      fog: { src: null, tint: "#ffffff" },
-      textures: { anchorX: 0.5, anchorY: 0.5, offsetX: 0, offsetY: 0, fit: "fill", scaleX: 1, scaleY: 1, rotation: 0 },
-      visibility: { levels: [] },
-      sort: 0,
-      flags: {}
-    }]
+    backgroundColor: "#1a2a1a"
   });
-  return scene;
+
+  // Schritt 2: Frische Referenz holen
+  const freshScene = game.scenes.get(scene.id);
+
+  // Schritt 3: Level-Daten updaten (getestet in Konsole - funktioniert!)
+  const levels = freshScene.toObject().levels ?? [];
+  if (levels.length > 0) {
+    levels[0].background.src = path;
+    await freshScene.update({ levels: levels });
+  }
+
+  return freshScene;
 }
 
 // ── Dialog-HTML ─────────────────────────────────────────────────
