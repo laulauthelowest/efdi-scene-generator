@@ -271,22 +271,26 @@ function openSceneGenerator() {
           backgroundColor: "#1a2a1a"
         });
 
-        // Foundry V14 Levels-System: Hintergrundbild im ersten Level setzen
-        const levels = scene.toObject().levels ?? [];
-        if (levels.length > 0) {
-          const levelId = levels[0]._id;
-          // Embedded Document update
-          await scene.updateEmbeddedDocuments("SceneLevel", [{
-            _id: levelId,
-            "background.src": path
-          }]);
-          console.log("EFDI-SG | Level updated:", levelId, path);
+        // Foundry V14: komplettes levels-Array mit neuem src updaten
+        const levelsData = scene.toObject().levels ?? [];
+        if (levelsData.length > 0) {
+          levelsData[0].background.src = path;
+          await scene.update({ levels: levelsData });
+          console.log("EFDI-SG | Background set to:", path);
+          console.log("EFDI-SG | Check:", scene.toObject().levels[0].background.src);
         } else {
-          await scene.createEmbeddedDocuments("SceneLevel", [{
+          await scene.update({ levels: [{
+            _id: "defaultLevel0000",
             name: "Level",
             elevation: { bottom: 0, top: 20 },
-            background: { src: path, color: "#121212", tint: "#ffffff", alphaThreshold: 0.75 }
-          }]);
+            background: { src: path, color: "#121212", tint: "#ffffff", alphaThreshold: 0.75 },
+            foreground: { src: null, tint: "#ffffff", alphaThreshold: 0.75 },
+            fog: { src: null, tint: "#ffffff" },
+            textures: { anchorX: 0.5, anchorY: 0.5, offsetX: 0, offsetY: 0, fit: "fill", scaleX: 1, scaleY: 1, rotation: 0 },
+            visibility: { levels: [] },
+            sort: 0,
+            flags: {}
+          }]});
         }
 
         ui.notifications.info(`✅ Szene "${name}" erstellt!`);
