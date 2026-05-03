@@ -263,23 +263,14 @@ function openSceneGenerator() {
           folderId = f.id;
         }
 
-        // Szene erstellen
+        // Szene erstellen — Bild direkt beim Erstellen mitgeben
+        // Foundry V14: levels werden direkt in Scene.create übergeben
         const scene = await Scene.create({
           name, folder: folderId,
           width: 1792, height: 1024,
           grid: { type: 0, size: 100 },
-          backgroundColor: "#1a2a1a"
-        });
-
-        // Foundry V14: komplettes levels-Array mit neuem src updaten
-        const levelsData = scene.toObject().levels ?? [];
-        if (levelsData.length > 0) {
-          levelsData[0].background.src = path;
-          await scene.update({ levels: levelsData });
-          console.log("EFDI-SG | Background set to:", path);
-          console.log("EFDI-SG | Check:", scene.toObject().levels[0].background.src);
-        } else {
-          await scene.update({ levels: [{
+          backgroundColor: "#1a2a1a",
+          levels: [{
             _id: "defaultLevel0000",
             name: "Level",
             elevation: { bottom: 0, top: 20 },
@@ -290,8 +281,17 @@ function openSceneGenerator() {
             visibility: { levels: [] },
             sort: 0,
             flags: {}
-          }]});
+          }]
+        });
+
+        // Frische Referenz holen und nochmal updaten (Foundry V14 Sicherheit)
+        const freshScene = game.scenes.get(scene.id);
+        const levelsData = freshScene.toObject().levels ?? [];
+        if (levelsData.length > 0) {
+          levelsData[0].background.src = path;
+          await freshScene.update({ levels: levelsData });
         }
+        console.log("EFDI-SG | Background:", freshScene.toObject().levels[0]?.background?.src);
 
         ui.notifications.info(`✅ Szene "${name}" erstellt!`);
         await scene.activate();
